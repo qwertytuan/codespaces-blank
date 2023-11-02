@@ -1,0 +1,46 @@
+BRANCH (Chi nhánh):
+Quản lý bởi một STAFF thông qua khóa ngoại MANAGER (FOREIGN KEY MANAGER_CNST).
+
+STAFF (Nhân viên):
+Có quan hệ với BRANCH thông qua quản lý một chi nhánh (BRANCH).
+Có quan hệ với RENTAL_AGREEMENT thông qua khóa ngoại RENTER_NO.
+Có quan hệ với STAFF_EMAIL thông qua STAFF_NO.
+Có quan hệ với STAFF_PHONE thông qua STAFF_NO.
+
+OWNER (Chủ sở hữu):
+Sở hữu PROPERTY thông qua khóa ngoại OWNED_BY.
+Có quan hệ với OWNER_EMAIL thông qua OWNER_NO.
+Có quan hệ với OWNER_PHONE thông qua OWNER_NO.
+
+RENTER (Người thuê):
+Ký kết RENTAL_AGREEMENT thông qua khóa ngoại RENTER_NO.
+Tham gia vào VIEWING thông qua RENTER_NO.
+Có quan hệ với RENTER_EMAIL thông qua RENTER_NO.
+Có quan hệ với RENTER_PHONE thông qua RENTER_NO.
+
+PROPERTY (Bất động sản):
+Thuộc về một BRANCH thông qua khóa ngoại OVERSEEN_BY.
+Thuộc sở hữu của một OWNER thông qua khóa ngoại OWNED_BY.
+Được quảng cáo qua ADVERTISEMENT thông qua PROPERTY_NO.
+Ký kết RENTAL_AGREEMENT thông qua PROPERTY_NO.
+Tham gia vào VIEWING thông qua PROPERTY_NO.
+
+RENTAL_AGREEMENT (Hợp đồng thuê):
+Liên kết PROPERTY thông qua PROPERTY_NO.
+Liên kết RENTER thông qua RENTER_NO.
+
+VIEWING (Xem nhà):
+Liên kết PROPERTY thông qua PROPERTY_NO.
+Liên kết RENTER thông qua RENTER_NO.
+
+NEWSPAPER (Báo):
+Liên quan đến ADVERTISEMENT thông qua PAPER_NAME.
+
+ADVERTISEMENT (Quảng cáo):
+Liên kết PROPERTY thông qua PROPERTY_NO.
+Liên quan đến NEWSPAPER thông qua PAPER_NAME.
+STAFF_EMAIL, STAFF_PHONE, OWNER_EMAIL, OWNER_PHONE, RENTER_EMAIL, RENTER_PHONE, và BRANCH_EMAIL:
+
+Liên kết với STAFF, OWNER, RENTER và BRANCH thông qua các khóa ngoại tương ứng để lưu trữ thông tin liên hệ (email và số điện thoại) của họ.
+
+Mô hình ER này giúp bạn hiểu cách các thực thể trong cơ sở dữ liệu của bạn liên quan và tương tác với nhau thông qua các quan hệ và khóa ngoại.

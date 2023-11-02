@@ -1,0 +1,273 @@
+CREATE database PROPERTYRENTAL;
+
+use PROPERTYRENTAL;
+
+CREATE TABLE BRANCH ( 
+       BRANCH_NO CHAR(4) NOT NULL, 
+       STREET_NO CHAR(4) NOT NULL, 
+       STREET CHAR(10) NOT NULL, 
+       CITY CHAR(10) NOT NULL, 
+       PROVINCE CHAR(2) NOT NULL, 
+       POSTAL_CODE CHAR(6) NOT NULL, 
+       MANAGER CHAR(4) NOT NULL, 
+       PRIMARY KEY (BRANCH_NO), 
+       CHECK (PROVINCE IN ('AL','BC','MA','NB','NF','NT','NS', 'NU', 
+                           'ON','PE','QB','SA','YU')), 
+       CHECK (('A'<=substring(POSTAL_CODE,1,1) AND  
+             substring(POSTAL_CODE,1,1)<='Z') AND 
+         ('0'<=substring(POSTAL_CODE,2,1) AND substring(POSTAL_CODE,2,1)<='9')    
+         AND 
+         ('A'<=substring(POSTAL_CODE,3,1) AND substring(POSTAL_CODE,3,1)<='Z') 
+         AND 
+         ('0'<=substring(POSTAL_CODE,4,1) AND substring(POSTAL_CODE,4,1)<='9')  
+         AND 
+         ('A'<=substring(POSTAL_CODE,5,1) AND substring(POSTAL_CODE,5,1)<='Z')  
+         AND 
+         ('0'<=substring(POSTAL_CODE,6,1) AND   
+          substring(POSTAL_CODE,6,1)<='9')), 
+       UNIQUE(MANAGER) 
+)
+
+ 
+CREATE TABLE STAFF ( 
+       STAFF_NO CHAR(4) NOT NULL, 
+       LAST_NAME CHAR(20) NOT NULL, 
+       FIRST_NAME CHAR(10) NOT NULL, 
+       MIDDLE_NAME CHAR(10), 
+       STREET_NO CHAR(4) NOT NULL, 
+       STREET CHAR(10) NOT NULL, 
+       CITY CHAR(10) NOT NULL, 
+       PROVINCE CHAR(2) NOT NULL, 
+       POSTAL_CODE CHAR(6) NOT NULL, 
+       SEX CHAR(1) NOT NULL, 
+       SALARY DECIMAL(9,2) NOT NULL, 
+       ALLOCATED_TO CHAR(4) NOT NULL, 
+       PRIMARY KEY (STAFF_NO), 
+       FOREIGN KEY (ALLOCATED_TO) REFERENCES BRANCH, 
+       CHECK (PROVINCE IN ('AL','BC','MA','NB','NF','NT','NS',  
+                           'NU','ON','PE','QB','SA','YU')), 
+       CHECK (SEX IN ('F','M','N')), 
+       CHECK (SALARY > 0), 
+       CHECK (('A'<=substring(POSTAL_CODE,1,1)  
+       AND substring(POSTAL_CODE,1,1)<='Z')  
+       AND ('0'<=substring(POSTAL_CODE,2,1)  
+       AND substring(POSTAL_CODE,2,1)<='9') 
+       AND ('A'<=substring(POSTAL_CODE,3,1)  
+       AND substring(POSTAL_CODE,3,1)<='Z')  
+       AND ('0'<=substring(POSTAL_CODE,4,1)  
+       AND substring(POSTAL_CODE,4,1)<='9') 
+       AND  ('A'<=substring(POSTAL_CODE,5,1)  
+       AND substring(POSTAL_CODE,5,1)<='Z')  
+       AND ('0'<=substring(POSTAL_CODE,6,1)  
+       AND substring(POSTAL_CODE,6,1)<='9'))     
+) 
+CREATE TABLE OWNER ( 
+       OWNER_NO CHAR(4) NOT NULL, 
+       NAME CHAR(20) NOT NULL, 
+       FIRST_NAME CHAR(10), 
+       MIDDLE_NAME CHAR(10), 
+       STREET_NO CHAR(4) NOT NULL, 
+       STREET CHAR(10) NOT NULL, 
+       CITY CHAR(10) NOT NULL, 
+       PROVINCE CHAR(2) NOT NULL, 
+       POSTAL_CODE CHAR(6) NOT NULL, 
+       TYPE_OF_BUSINESS CHAR(2), 
+       PRIMARY KEY (OWNER_NO), 
+       CHECK (PROVINCE IN ('AL','BC','MA','NB','NF','NT','NS','NU',  
+                           'ON','PE','QB','SA','YU')), 
+  CHECK (('A'<=substring(POSTAL_CODE,1,1) AND substring(POSTAL_CODE,1,1)<='Z')  
+  AND ('0'<=substring(POSTAL_CODE,2,1) AND substring(POSTAL_CODE,2,1)<='9')  
+  AND ('A'<=substring(POSTAL_CODE,3,1) AND substring(POSTAL_CODE,3,1)<='Z') 
+  AND ('0'<=substring(POSTAL_CODE,4,1) AND substring(POSTAL_CODE,4,1)<='9')  
+  AND ('A'<=substring(POSTAL_CODE,5,1) AND substring(POSTAL_CODE,5,1)<='Z')  
+  AND ('0'<=substring(POSTAL_CODE,6,1) AND substring(POSTAL_CODE,6,1)<='9')), 
+  CHECK(TYPE_OF_BUSINESS IS NULL OR (FIRST_NAME IS NULL AND MIDDLE_NAME  
+        IS NULL)) 
+) 
+CREATE TABLE RENTER ( 
+       RENTER_NO CHAR(4) NOT NULL, 
+       NAME CHAR(20) NOT NULL, 
+       FIRST_NAME CHAR(10), 
+       MIDDLE_NAME CHAR(10), 
+       STREET_NO CHAR(4) NOT NULL, 
+       STREET CHAR(10) NOT NULL, 
+       CITY CHAR(10) NOT NULL, 
+       PROVINCE CHAR(2) NOT NULL, 
+       POSTAL_CODE CHAR(6) NOT NULL, 
+       TYPE_OF_BUSINESS CHAR(2), 
+       PRIMARY KEY (RENTER_NO), 
+  CHECK (PROVINCE IN ('AL','BC','MA','NB','NF','NT','NS','NU','ON',  
+                      'PE','QB','SA','YU')), 
+  CHECK (('A'<=substring(POSTAL_CODE,1,1) AND substring(POSTAL_CODE,1,1)<='Z')  
+  AND ('0'<=substring(POSTAL_CODE,2,1) AND substring(POSTAL_CODE,2,1)<='9')  
+  AND ('A'<=substring(POSTAL_CODE,3,1) AND substring(POSTAL_CODE,3,1)<='Z') 
+  AND ('0'<=substring(POSTAL_CODE,4,1) AND substring(POSTAL_CODE,4,1)<='9') 
+  AND ('A'<=substring(POSTAL_CODE,5,1) AND substring(POSTAL_CODE,5,1)<='Z') 
+  AND ('0'<=substring(POSTAL_CODE,6,1) AND substring(POSTAL_CODE,6,1)<='9')), 
+  CHECK(TYPE_OF_BUSINESS IS NULL OR (FIRST_NAME IS NULL AND MIDDLE_NAME 
+  IS NULL)) 
+
+
+) 
+CREATE TABLE PROPERTY ( 
+       PROPERTY_NO CHAR(4) NOT NULL, 
+       STREET_NO CHAR(4) NOT NULL, 
+       STREET CHAR(10) NOT NULL, 
+       CITY CHAR(10) NOT NULL, 
+       PROVINCE CHAR(2) NOT NULL, 
+       POSTAL_CODE CHAR(6) NOT NULL, 
+       OVERSEEN_BY CHAR(4) NOT NULL, 
+       OWNED_BY CHAR(4) NOT NULL, 
+       TYPE CHAR(2) NOT NULL, 
+       PRIMARY KEY (PROPERTY_NO), 
+       FOREIGN KEY (OVERSEEN_BY) REFERENCES STAFF, 
+       FOREIGN KEY (OWNED_BY) REFERENCES OWNER, 
+  CHECK (PROVINCE IN ('AL','BC','MA','NB','NF','NT','NS','NU','ON', 
+                      'PE','QB','SA','YU')), 
+  CHECK (('A'<=substring(POSTAL_CODE,1,1) AND substring(POSTAL_CODE,1,1)<='Z') 
+  AND ('0'<=substring(POSTAL_CODE,2,1) AND substring(POSTAL_CODE,2,1)<='9')  
+  AND ('A'<=substring(POSTAL_CODE,3,1) AND substring(POSTAL_CODE,3,1)<='Z')  
+  AND ('0'<=substring(POSTAL_CODE,4,1) AND substring(POSTAL_CODE,4,1)<='9')  
+  AND ('A'<=substring(POSTAL_CODE,5,1) AND substring(POSTAL_CODE,5,1)<='Z') 
+  AND ('0'<=substring(POSTAL_CODE,6,1) AND substring(POSTAL_CODE,6,1)<='9')) 
+) 
+CREATE TABLE RENTAL_AGREEMENT ( 
+       PROPERTY_NO CHAR(4) NOT NULL, 
+       RENTAL_NO CHAR(4) NOT NULL, 
+       SIGNING_DATE DATE NOT NULL, 
+       STARTING_DATE DATE NOT NULL, 
+       ENDING_DATE DATE NOT NULL, 
+       RENTER_NO CHAR(4) NOT NULL, 
+       PRIMARY KEY (PROPERTY_NO,RENTAL_NO), 
+       FOREIGN KEY (PROPERTY_NO) REFERENCES PROPERTY, 
+       FOREIGN KEY (RENTER_NO) REFERENCES RENTER, 
+       CHECK (SIGNING_DATE <= STARTING_DATE), 
+       CHECK (STARTING_DATE <= ENDING_DATE) 
+) 
+CREATE TABLE RENTER_EMAIL ( 
+       EMAIL_ADDR CHAR(20) NOT NULL, 
+       RENTER_NO CHAR(4) NOT NULL, 
+       PRIMARY KEY (EMAIL_ADDR,RENTER_NO), 
+       FOREIGN KEY (RENTER_NO) REFERENCES RENTER 
+) 
+CREATE TABLE STAFF_EMAIL ( 
+       EMAIL_ADDR CHAR(20) NOT NULL, 
+       STAFF_NO CHAR(4) NOT NULL, 
+       PRIMARY KEY (EMAIL_ADDR,STAFF_NO), 
+       FOREIGN KEY (STAFF_NO) REFERENCES STAFF 
+) 
+CREATE TABLE OWNER_EMAIL (   
+       EMAIL_ADDR CHAR(20) NOT NULL, 
+       OWNER_NO CHAR(4) NOT NULL, 
+       PRIMARY KEY (EMAIL_ADDR,OWNER_NO), 
+       FOREIGN KEY (OWNER_NO) REFERENCES OWNER 
+) 
+
+  
+ 
+CREATE TABLE BRANCH_EMAIL ( 
+       EMAIL_ADDR CHAR(20) NOT NULL, 
+       BRANCH_NO CHAR(4) NOT NULL, 
+       PRIMARY KEY (EMAIL_ADDR,BRANCH_NO), 
+       FOREIGN KEY (BRANCH_NO) REFERENCES BRANCH 
+) 
+CREATE TABLE RENTER_PHONE ( 
+       AREA_CODE CHAR(3) NOT NULL, 
+       PHONE_NO CHAR(7) NOT NULL, 
+       EXTENSION VARCHAR(5), 
+       RENTER_NO CHAR(4) NOT NULL, 
+       PRIMARY KEY (AREA_CODE,PHONE_NO,RENTER_NO), 
+       FOREIGN KEY (RENTER_NO) REFERENCES RENTER, 
+  CHECK(('0'<=substring(AREA_CODE,1,1) AND substring(AREA_CODE,1,1)<='9')  
+  AND ('0'<=substring(AREA_CODE,2,1) AND substring(AREA_CODE,2,1)<='9')  
+  AND ('0'<=substring(AREA_CODE,3,1) AND substring(AREA_CODE,3,1)<='9')), 
+  CHECK(('0'<=substring(PHONE_NO,1,1) AND substring(PHONE_NO,1,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,2,1) AND substring(PHONE_NO,2,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,3,1) AND substring(PHONE_NO,3,1)<='9')    
+  AND ('0'<=substring(PHONE_NO,4,1) AND substring(PHONE_NO,4,1)<='9')     
+  AND ('0'<=substring(PHONE_NO,5,1) AND substring(PHONE_NO,5,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,6,1) AND substring(PHONE_NO,6,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,7,1) AND substring(PHONE_NO,7,1)<='9')) 
+) 
+CREATE TABLE STAFF_PHONE ( 
+       AREA_CODE CHAR(3) NOT NULL, 
+       PHONE_NO CHAR(7) NOT NULL, 
+       EXTENSION VARCHAR(5), 
+       STAFF_NO CHAR(4) NOT NULL, 
+       PRIMARY KEY (AREA_CODE,PHONE_NO,STAFF_NO), 
+       FOREIGN KEY (STAFF_NO) REFERENCES STAFF, 
+  CHECK(('0'<=substring(AREA_CODE,1,1) AND substring(AREA_CODE,1,1)<='9')  
+  AND ('0'<=substring(AREA_CODE,2,1) AND substring(AREA_CODE,2,1)<='9')  
+  AND ('0'<=substring(AREA_CODE,3,1) AND substring(AREA_CODE,3,1)<='9')), 
+  CHECK(('0'<=substring(PHONE_NO,1,1) AND substring(PHONE_NO,1,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,2,1) AND substring(PHONE_NO,2,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,3,1) AND substring(PHONE_NO,3,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,4,1) AND substring(PHONE_NO,4,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,5,1) AND substring(PHONE_NO,5,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,6,1) AND substring(PHONE_NO,6,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,7,1) AND substring(PHONE_NO,7,1)<='9')) 
+) 
+CREATE TABLE OWNER_PHONE ( 
+       AREA_CODE CHAR(3) NOT NULL, 
+       PHONE_NO CHAR(7) NOT NULL, 
+       EXTENSION VARCHAR(5), 
+       OWNER_NO CHAR(4) NOT NULL, 
+       PRIMARY KEY (AREA_CODE,PHONE_NO,OWNER_NO), 
+       FOREIGN KEY (OWNER_NO) REFERENCES OWNER, 
+  CHECK(('0'<=substring(AREA_CODE,1,1) AND substring(AREA_CODE,1,1)<='9')  
+  AND ('0'<=substring(AREA_CODE,2,1) AND substring(AREA_CODE,2,1)<='9')  
+  AND ('0'<=substring(AREA_CODE,3,1) AND substring(AREA_CODE,3,1)<='9')), 
+  CHECK(('0'<=substring(PHONE_NO,1,1) AND substring(PHONE_NO,1,1)<='9') 
+  AND ('0'<=substring(PHONE_NO,2,1) AND substring(PHONE_NO,2,1)<='9')   
+  AND ('0'<=substring(PHONE_NO,3,1) AND substring(PHONE_NO,3,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,4,1) AND substring(PHONE_NO,4,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,5,1) AND substring(PHONE_NO,5,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,6,1) AND substring(PHONE_NO,6,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,7,1) AND substring(PHONE_NO,7,1)<='9')) 
+) 
+CREATE TABLE BRANCH_PHONE ( 
+       AREA_CODE CHAR(3) NOT NULL, 
+       PHONE_NO CHAR(7) NOT NULL, 
+       EXTENSION VARCHAR(5), 
+       BRANCH_NO CHAR(4) NOT NULL, 
+       PRIMARY KEY (AREA_CODE,PHONE_NO,BRANCH_NO), 
+       FOREIGN KEY (BRANCH_NO) REFERENCES BRANCH, 
+  CHECK(('0'<=substring(AREA_CODE,1,1) AND substring(AREA_CODE,1,1)<='9')  
+  AND ('0'<=substring(AREA_CODE,2,1) AND substring(AREA_CODE,2,1)<='9')  
+  AND ('0'<=substring(AREA_CODE,3,1) AND substring(AREA_CODE,3,1)<='9')), 
+  CHECK(('0'<=substring(PHONE_NO,1,1) AND substring(PHONE_NO,1,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,2,1) AND substring(PHONE_NO,2,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,3,1) AND substring(PHONE_NO,3,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,4,1) AND substring(PHONE_NO,4,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,5,1) AND substring(PHONE_NO,5,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,6,1) AND substring(PHONE_NO,6,1)<='9')  
+  AND ('0'<=substring(PHONE_NO,7,1) AND substring(PHONE_NO,7,1)<='9')) 
+) 
+CREATE TABLE VIEWING ( 
+       PROPERTY_NO CHAR(4) NOT NULL, 
+       RENTER_NO CHAR(4) NOT NULL, 
+       VIEWING_DATE DATE NOT NULL, 
+       PRIMARY KEY (PROPERTY_NO,VIEWING_DATE,RENTER_NO), 
+       FOREIGN KEY (PROPERTY_NO) REFERENCES PROPERTY, 
+       FOREIGN KEY (RENTER_NO) REFERENCES RENTER 
+) 
+CREATE TABLE NEWSPAPER ( 
+       PAPER_NAME CHAR(20) NOT NULL, 
+       PRIMARY KEY (PAPER_NAME) 
+) 
+CREATE TABLE ADVERTISEMENT ( 
+       PAPER_NAME CHAR(20) NOT NULL, 
+       AD_NO CHAR(4) NOT NULL, 
+       AD_DATE DATE NOT NULL, 
+       PROPERTY_NO CHAR(4) NOT NULL,   
+      PRIMARY KEY (PAPER_NAME,AD_NO), 
+      FOREIGN KEY (PAPER_NAME) REFERENCES NEWSPAPER, 
+      FOREIGN KEY (PROPERTY_NO) REFERENCES PROPERTY 
+) 
+ALTER TABLE BRANCH 
+ADD CONSTRAINT MANAGER_CNST FOREIGN KEY (MANAGER) REFERENCES 
+STAFF(STAFF_NO)
+
+
+
+

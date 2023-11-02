@@ -1,0 +1,122 @@
+-- Insert 5 additional rows into BRANCH
+INSERT INTO BRANCH (BRANCH_NO, STREET_NO, STREET, CITY, PROVINCE, POSTAL_CODE, MANAGER)
+VALUES 
+  ('B001', '4321', 'Cedar St', 'City4', 'ON', 'A1B2C3', 'M001'),
+  ('B002', '8765', 'HAMILTON', 'City5', 'BC', 'B2C3D4', 'M002'),
+  ('B003', '3456', 'Elm St', 'City1', 'ON', 'C3D4E5', 'M003'),
+  ('B004', '6543', 'HAMILTON', 'City2', 'BC', 'D4E5F6', 'M004'),
+  ('B005', '7890', 'Pine St', 'City3', 'ON', 'E5F6G7', 'M005');
+SELECT * from BRANCH;
+
+-- Insert 5 additional rows into STAFF
+INSERT INTO STAFF (STAFF_NO, LAST_NAME, FIRST_NAME, MIDDLE_NAME, STREET_NO, STREET, CITY, PROVINCE, POSTAL_CODE, SEX, SALARY, ALLOCATED_TO)
+VALUES 
+  ('S004', 'Johnson', 'Michael', NULL, '8765', 'Cedar St', 'City4', 'ON', 'A1B2C3', 'M', 58000.00, 'B003'),
+  ('S005', 'Martinez', 'Elizabeth', 'J', '9876', 'Birch St', 'City5', 'BC', 'B2C3D4', 'F', 62000.00, 'B004'),
+  ('S006', 'Taylor', 'William', NULL, '4321', 'Pine St', 'City3', 'ON', 'E5F6G7', 'M', 54000.00, 'B002'),
+  ('S007', 'Anderson', 'Amanda', 'M', '5432', 'Maple St', 'City2', 'BC', 'D4E5F6', 'F', 55000.00, 'B005'),
+  ('S008', 'Harris', 'Robert', NULL, '7654', 'Oak St', 'City1', 'ON', 'C3D4E5', 'M', 60000.00, 'B006');
+SELECT * from STAFF;
+
+-- Insert 5 additional rows into OWNER
+INSERT INTO OWNER (OWNER_NO, NAME, FIRST_NAME, MIDDLE_NAME, STREET_NO, STREET, CITY, PROVINCE, POSTAL_CODE, TYPE_OF_BUSINESS)
+VALUES 
+  ('O004', 'Wilson', 'Jessica', 'S', '5432', 'Elm St', 'City1', 'ON', 'A1B2C3', 'RE'),
+  ('O005', 'Brown', 'David', NULL, '7654', 'Cedar St', 'City4', 'ON', 'B2C3D4', 'IN'),
+  ('O006', 'Gonzalez', 'Karen', NULL, '8765', 'Pine St', 'City3', 'BC', 'C3D4E5', NULL),
+  ('O007', 'Perez', 'John', 'D', '9876', 'Birch St', 'City5', 'BC', 'D4E5F6', 'RE'),
+  ('O008', 'Miller', 'Jennifer', NULL, '6543', 'Oak St', 'City2', 'ON', 'E5F6G7', 'IN');
+
+-- Insert 5 additional rows into RENTER
+INSERT INTO RENTER (RENTER_NO, NAME, FIRST_NAME, MIDDLE_NAME, STREET_NO, STREET, CITY, PROVINCE, POSTAL_CODE, TYPE_OF_BUSINESS)
+VALUES 
+  ('R004', 'Rodriguez', 'Daniel', NULL, '5432', 'Cedar St', 'City4', 'ON', 'A1B2C3', 'RE'),
+  ('R005', 'Hernandez', 'Laura', 'K', '9876', 'Birch St', 'City5', 'BC', 'B2C3D4', 'IN'),
+  ('R006', 'Smith', 'Joseph', NULL, '8765', 'Pine St', 'City3', 'ON', 'C3D4E5', 'IN'),
+  ('R007', 'Lopez', 'Samantha', 'R', '7654', 'Maple St', 'City2', 'BC', 'D4E5F6', 'RE'),
+  ('R008', 'Williams', 'Charles', NULL, '6543', 'Elm St', 'City1', 'ON', 'E5F6G7', 'RE');
+
+-- Insert 5 additional rows into PROPERTY
+INSERT INTO PROPERTY (PROPERTY_NO, STREET_NO, STREET, CITY, PROVINCE, POSTAL_CODE, OVERSEEN_BY, OWNED_BY, TYPE)
+VALUES 
+  ('P004', '1234', 'Main St', 'City1', 'ON', 'A1B2C3', 'S004', 'O004', 'AP'),
+  ('P005', '2222', 'Cedar St', 'City4', 'ON', 'B2C3D4', 'S005', 'O005', 'HO'),
+  ('P006', '3456', 'Birch St', 'City5', 'BC', 'C3D4E5', 'S006', 'O006', 'AP'),
+  ('P007', '4321', 'Elm St', 'City1', 'ON', 'D4E5F6', 'S007', 'O007', 'HO'),
+  ('P008', '8765', 'Maple St', 'City2', 'BC', 'E5F6G7', 'S008', 'O008', 'AP');
+
+-- Insert 5 additional rows into RENTAL_AGREEMENT
+INSERT INTO RENTAL_AGREEMENT (PROPERTY_NO, RENTAL_NO, SIGNING_DATE, STARTING_DATE, ENDING_DATE, RENTER_NO)
+VALUES 
+  ('P004', 'RA004', '2023-11-01', '2023-11-15', '2024-11-15', 'R004'),
+  ('P005', 'RA005', '2023-11-02', '2023-11-10', '2024-11-10', 'R005'),
+  ('P006', 'RA006', '2023-11-03', '2023-11-20', '2024-11-20', 'R006'),
+  ('P007', 'RA007', '2023-11-04', '2023-11-05', '2024-11-05', 'R007'),
+  ('P008', 'RA008', '2023-11-05', '2023-11-17', '2024-11-17', 'R008');
+
+-- Insert 5 additional rows into RENTER_EMAIL
+INSERT INTO RENTER_EMAIL (EMAIL_ADDR, RENTER_NO)
+VALUES 
+  ('renter4@example.com', 'R004'),
+  ('renter5@example.com', 'R005'),
+  ('renter6@example.com', 'R006'),
+  ('renter7@example.com', 'R007'),
+  ('renter8@example.com', 'R008');
+
+-- Insert 5 additional rows into STAFF_EMAIL
+INSERT INTO STAFF_EMAIL (EMAIL_ADDR, STAFF_NO)
+VALUES 
+  ('staff4@example.com', 'S004'),
+  ('staff5@example.com', 'S005'),
+  ('staff6@example.com', 'S006'),
+  ('staff7@example.com', 'S007'),
+  ('staff8@example.com', 'S008');
+
+-- Insert 5 additional rows into OWNER_EMAIL
+INSERT INTO OWNER_EMAIL (EMAIL_ADDR, OWNER_NO)
+VALUES 
+  ('owner4@example.com', 'O004'),
+  ('owner5@example.com', 'O005'),
+  ('owner6@example.com', 'O006'),
+  ('owner7@example.com', 'O007'),
+  ('owner8@example.com', 'O008');
+
+-- Insert 5 additional rows into BRANCH_EMAIL
+INSERT INTO BRANCH_EMAIL (EMAIL_ADDR, BRANCH_NO)
+VALUES 
+  ('branch4@example.com', 'B004'),
+  ('branch5@example.com', 'B005'),
+  ('branch6@example.com', 'B006'),
+  ('branch7@example.com', 'B007'),
+  ('branch8@example.com', 'B008');
+
+-- Insert 5 additional rows into VIEWING
+INSERT INTO VIEWING (PROPERTY_NO, RENTER_NO, VIEWING_DATE)
+VALUES 
+  ('P004', 'R004', '2023-11-25'),
+  ('P005', 'R005', '2023-11-26'),
+  ('P006', 'R006', '2023-11-27'),
+  ('P007', 'R007', '2023-11-28'),
+  ('P008', 'R008', '2023-11-29');
+
+-- Insert 5 additional rows into NEWSPAPER
+INSERT INTO NEWSPAPER (PAPER_NAME)
+VALUES 
+  ('City News'),
+  ('THE GLOBE AND MAIL'),
+  ('Metro News'),
+  ('Local Daily'),
+  ('Regional Times');
+
+-- Insert 5 additional rows into ADVERTISEMENT
+INSERT INTO ADVERTISEMENT (PAPER_NAME, AD_NO, AD_DATE, PROPERTY_NO)
+VALUES 
+  ('City News', 'AD004', '2001-11-01', 'P004'),
+  ('THE GLOBE AND MAIL', 'AD005', '2005-11-02', 'P005'),
+  ('Metro News', 'AD006', '2004-11-03', 'P006'),
+  ('Local Daily', 'AD007', '2006-11-04', 'P007'),
+  ('Regional Times', 'AD008', '2003-11-05', 'P008');
+
+
+
+
