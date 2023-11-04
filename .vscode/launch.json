@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Admin/helloworld",
-      "program": "c:/Users/Admin/helloworld/build/Debug/outDebug",
+      "cwd": "c:/Users/Admin/helloworld/temp",
+      "program": "c:/Users/Admin/helloworld/temp/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
